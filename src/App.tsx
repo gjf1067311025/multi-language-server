@@ -1,26 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { FC, useEffect } from 'react';
+import { Router as RouterWrap } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+import { Router } from './Router';
+import { Button, Layout } from 'antd';
+import SideMenu from './components/SideMenu';
+import Header from './components/Header';
 import './App.css';
+import "@arco-design/web-react/dist/css/arco.css";
 
-function App() {
+const { Sider, Content } = Layout;
+
+const bsHistory = createBrowserHistory();
+
+const App: FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <RouterWrap history={bsHistory}>
+      <Layout style={{ minWidth: 1440 }}>
+        <Header />
+        <Layout>
+          <Sider width="120px">
+            <SideMenu />
+          </Sider>
+          <Content
+            style={{
+            background: 'transparent',
+            padding: '24px 24px 24px 48px',
+            }}>
+           <Router />
+           
+          </Content>
+        </Layout>
+      </Layout>
+    </RouterWrap>
   );
-}
+};
 
 export default App;
